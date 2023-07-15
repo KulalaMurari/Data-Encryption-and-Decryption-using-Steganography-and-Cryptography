@@ -1,0 +1,102 @@
+body,html {
+    background-color: rgb(0, 0, 0);
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .input1,
+  .input2 {
+    width: 50%;
+    min-height: 100vh;
+    display: inline;
+    box-sizing: border-box;
+    resize: none;
+    float: left;
+    font-size: 3vw;
+    font-weight: bold;
+    padding: 7vw;
+    font-family: "Times New Roman", Times, serif;
+    border: 15px solid  black ;
+    position: relative;
+
+  }
+
+  .input1:focus,
+  .input2:focus {
+    background-color: rgb(206, 206, 206);
+  }
+
+  .logo{
+      position: absolute;
+      width: 100%;
+      color: rgb(102, 102, 102);
+      width: 50%;
+      text-align: center;
+      font-size: 7vmin;
+      font-weight: bold;
+      box-sizing: border-box;
+      pointer-events: none;
+      /* padding: 90px; */
+
+  }
+
+  .logo-1{
+      left: 0;
+    top: 40%;
+    opacity: .3;
+  }
+  .logo-2{
+    right: 0;
+  top: 40%;
+  opacity: .3;
+}
+
+  .error{
+      color: red;
+      background-color: rgb(255, 211, 211);
+  }
+
+
+  .error-text{
+      position:absolute;
+      
+      left: 50%;
+      top: 30%;
+     transform: translate(-50%,-50%);
+      text-align: center;
+      font-size: 2.5vmax;
+      font-family:'Times New Roman', Times, serif;
+  }
+
+
+  .error-box{
+    position:absolute;
+    width: 30%;
+    left: 10%;
+    top: 35%;
+    height: 200px;
+    border-radius: 10px;
+    z-index: 1;
+    background-color: rgb(226, 226, 226);
+    border: 10px solid red;
+    box-sizing: border-box;
+    animation-name: errorBox;
+    animation-duration: 1.5s ;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    display: none;
+    pointer-events: none;
+  
+  }
+
+  @keyframes errorBox{
+      0%{transform:  rotate(0deg) scale(1);  box-shadow: 0 0 0px red;}
+      12%{transform:  rotate(2deg) scale(1.05);  box-shadow: 0 0 6px black;}
+      25%{transform:  rotate(-2deg) scale(1.05);  box-shadow: 0 0 6px black;}
+      32%{transform:  rotate(2deg) scale(1.05);  box-shadow: 0 0 6px black;}
+      50%{transform:  rotate(-2deg) scale(1.05);  box-shadow: 0 0 6px black;}
+      75%{transform:  rotate(0deg) scale(1);  box-shadow: 0 0 0px red;}
+      100%{transform:  rotate(0deg) scale(1);  box-shadow: 0 0 0px red;}
+  }

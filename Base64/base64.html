@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+<title>BASE64 </title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./base64.css">
+</head>
+<body>
+    <textarea id="input1" class="input1"  oninput="atob()" onfocus="atob()"></textarea>
+
+    <textarea id="input2" class="input2"  oninput="btoa()"></textarea>
+<div class="error-box" id="error-box">
+    <h2 class="error-text">text format is incorrect !</h2>
+</div>
+    <div class="logo logo-1"><p>Plain Text</p></div>
+    <div class="logo logo-2"><p>Base64</p></div>
+
+
+    <script src="./base64.js"></script>
+</body>
+</html>

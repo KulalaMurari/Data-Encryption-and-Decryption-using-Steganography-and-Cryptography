@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Base64 to File Converter</title>
+		<style>
+			html,body{background-color:#f7fafc;font-family:Arial;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none;margin:0;padding:0}
+			div{display:inline-block;width:98%;margin-left:1%;margin-top:1%}
+			span{display:inline-block;width:100%;font-size:30px;margin-bottom:10px;color:#2d3748;cursor:default}
+			textarea{display:inline-block;background-color:white;border:1px solid #e2e8f0;width:99%;resize:none}
+			input[type=file]{padding:10px}
+			#buttonDownload{width:90px;background-color:#4299e1;border:1px solid #4299e1;border-radius:7px;font-size:15px;font-weight:bold;color:white;line-height:2.5;margin-top:5px;margin-bottom:10px;cursor:pointer}
+			#buttonDownload:hover{background-color:#3182ce;border:1px solid #3182ce}
+			#buttonClear{width:90px;background-color:#38b2ac;border:1px solid #38b2ac;border-radius:7px;font-size:15px;font-weight:bold;color:white;line-height:2.5;margin-top:5px;margin-bottom:10px;cursor:pointer}
+			#buttonClear:hover{background-color:#319795;border:1px solid #319795}
+		</style>
+	</head>
+	<body>
+		<div>
+			<span>Input Base64 content</span>
+			<textarea id="in" spellcheck="false" rows="25" cols="80"></textarea>
+		</div>
+		<div>
+			<button id="buttonDownload">Download</button>
+			<button id="buttonClear">Clear</button>
+		</div>
+		<script>
+			function convertBase64ToFile()
+				{
+				try
+					{
+					// GETTING THE BLOB CONTENT
+					var myBlobContent = convertBase64ToBlob(document.getElementById("in").value);
+
+					// DOWNLOADING THE FILE
+					var link = document.createElement("a");
+					link.style.display = "none";
+					document.body.appendChild(link);
+					link.href = URL.createObjectURL(myBlobContent);
+					link.download = "BinaryFile";
+					link.click();
+					}
+					catch(err)
+					{
+					}
+				}
+
+			function convertBase64ToBlob(base64Content)
+				{
+				var decodedData = "";
+				var imageType = "";
+
+				// SEARCHING FOR A BASE64 HEADER
+				if (base64Content.indexOf(";base64,")>-1)
+					{
+					// SPLITTING THE CONTENT INTO TWO PARTS
+					var parts = base64Content.split(";base64,");
+
+					// GETTING THE CONTENT TYPE
+					imageType = parts[0].split(":")[1];
+
+					// DECODING THE BASE64 CONTENT
+					decodedData = window.atob(parts[1]);
+					}
+					else
+					{
+					// DECODING THE BASE64 CONTENT
+					decodedData = window.atob(base64Content);
+					}
+
+				// CREATING A UNIT8ARRAY OF SIZE SAME AS ROW DATA LENGTH
+				var uInt8Array = new Uint8Array(decodedData.length);
+
+				// INSERTING ALL CHARACTER CODE INTO UINT8ARRAY
+				for (var i = 0; i < decodedData.length; i++)
+					{
+					uInt8Array[i] = decodedData.charCodeAt(i);
+					}
+
+				// RETURNING BLOB IMAGE AFTER CONVERSION
+				return new Blob([uInt8Array], { type: imageType });
+				}
+
+			window.addEventListener("load", function()
+				{
+				// CLEARING THE IN TEXTAREA
+				document.getElementById("in").value = "";
+
+				// CLEARING THE OUT TEXTAREA
+				document.getElementById("in").innerHTML = "&nbsp;";
+
+				// FOCUSING THE IN TEXTAREA
+				document.getElementById("in").focus();
+
+				// SETTING WHAT WILL HAPPEN WHEN THE USER CLICKS IN THE "DOWNLOAD" BUTTON
+				document.getElementById("buttonDownload").addEventListener("click",function(event)
+					{
+					// CONVERTING THE BASE64 CONTENT TO A FILE
+					convertBase64ToFile();
+					});
+
+				// SETTING WHAT WILL HAPPEN WHEN THE USER CLICKS IN THE "CLEAR" BUTTON
+				document.getElementById("buttonClear").addEventListener("click",function(event)
+					{
+					// CLEARING THE IN TEXTAREA
+					document.getElementById("in").value = "";
+					});
+
+				// SETTING WHAT WILL HAPPEN WHEN THE USER PASTE A TEXT IN THE IN TEXTAREA
+				document.getElementById("in").addEventListener("paste", function(e)
+					{
+					// CANCELING THE PASTE EVENT
+					e.preventDefault();
+
+					// GETTING THE CLIPBOARD CONTENT AS PLAIN TEXT
+					var text = (e.originalEvent || e).clipboardData.getData("text/plain");
+
+					// UPDATING THE IN TEXTAREA
+					document.getElementById("in").value = text;
+
+					// CONVERTING THE BASE64 CONTENT TO A FILE
+					convertBase64ToFile();
+					});
+				});
+		</script>
+	</body>
+</html>
