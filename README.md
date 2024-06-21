@@ -44,4 +44,4 @@
     --> Base64 Cryptography <br>
     </p>
 
-<h3> FEEL FREE TO USE THE CODE ^_~</h3>
+
